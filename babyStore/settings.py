@@ -26,7 +26,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 
 
-ALLOWED_HOSTS = ['16.171.7.195']
+ALLOWED_HOSTS = ['babystore.duckdns.org']
 # Application definition
 
 INSTALLED_APPS = [
