@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import OrderCreateView, OrderDetailView, OrderListView, OrderStatusUpdateView,OrderDlatailedView,RazorpayPaymentVerify
+from .views import OrderCreateView, OrderDetailView, OrderListView, OrderStatusUpdateView,OrderDlatailedView
 
 
 urlpatterns = [
@@ -8,5 +8,5 @@ urlpatterns = [
     path('detail/', OrderDetailView.as_view(), name='order-detail'),
     path('<int:pk>/status/', OrderStatusUpdateView.as_view(), name='order-status-update'),
     path('details/<int:pk>', OrderDlatailedView.as_view(), name='order-details'),
-    path('verify/',RazorpayPaymentVerify.as_view(),name="payment-verification"),
+    # path('verify/',RazorpayPaymentVerify.as_view(),name="payment-verification"),
 ]

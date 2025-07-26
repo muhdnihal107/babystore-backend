@@ -88,39 +88,39 @@ class OrderCreateView(APIView):
         serializer = OrderSerializer(order)
         return Response(serializer.data,status=status.HTTP_201_CREATED)
 
-class RazorpayPaymentVerify(APIView):
-    def post(self, request, *args, **kwargs):
-        data = request.data
-        razorpay_order_id = data.get('razorpay_order_id')
-        razorpay_payment_id = data.get('razorpay_payment_id')
-        razorpay_signature = data.get('razorpay_signature')
+# class RazorpayPaymentVerify(APIView):
+#     def post(self, request, *args, **kwargs):
+#         data = request.data
+#         razorpay_order_id = data.get('razorpay_order_id')
+#         razorpay_payment_id = data.get('razorpay_payment_id')
+#         razorpay_signature = data.get('razorpay_signature')
 
-        if not razorpay_order_id or not razorpay_payment_id or not razorpay_signature:
-            return Response({"error": "Missing payment verification details."}, status=status.HTTP_400_BAD_REQUEST)
+#         if not razorpay_order_id or not razorpay_payment_id or not razorpay_signature:
+#             return Response({"error": "Missing payment verification details."}, status=status.HTTP_400_BAD_REQUEST)
 
         
-        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_SECRET))
-        params_dict = {
-            'razorpay_order_id': razorpay_order_id,
-            'razorpay_payment_id': razorpay_payment_id,
-            'razorpay_signature': razorpay_signature
-        }
+#         client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_SECRET))
+#         params_dict = {
+#             'razorpay_order_id': razorpay_order_id,
+#             'razorpay_payment_id': razorpay_payment_id,
+#             'razorpay_signature': razorpay_signature
+#         }
 
-        try:
+#         try:
             
-            client.utility.verify_payment_signature(params_dict)
+#             client.utility.verify_payment_signature(params_dict)
 
             
-            order = Order.objects.get(razorpay_order_id=razorpay_order_id)
-            order.payment_status = 'Completed'  
-            order.save()
+#             order = Order.objects.get(razorpay_order_id=razorpay_order_id)
+#             order.payment_status = 'Completed'  
+#             order.save()
 
-            return Response({"message": "Payment verified successfully."}, status=status.HTTP_200_OK)
+#             return Response({"message": "Payment verified successfully."}, status=status.HTTP_200_OK)
 
-        except razorpay.errors.SignatureVerificationError as e:
-            return Response({"error": "Payment signature verification failed", "details": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-        except Order.DoesNotExist:
-            return Response({"error": "Order not found."}, status=status.HTTP_404_NOT_FOUND)
+#         except razorpay.errors.SignatureVerificationError as e:
+#             return Response({"error": "Payment signature verification failed", "details": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+#         except Order.DoesNotExist:
+#             return Response({"error": "Order not found."}, status=status.HTTP_404_NOT_FOUND)
       
     
 class OrderDetailView(APIView):

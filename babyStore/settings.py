@@ -22,11 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 
 
 
-ALLOWED_HOSTS = ['babystore.duckdns.org']
+ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
@@ -83,14 +83,21 @@ WSGI_APPLICATION = 'babyStore.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),  # PostgreSQL username
+#         'PASSWORD': config('DB_PASSWORD'),  # PostgreSQL password
+#         'HOST': config('DB_HOST', default='localhost'),  # Set to your PostgreSQL server address
+#         'PORT': config('DB_PORT', default='5432'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),  # PostgreSQL username
-        'PASSWORD': config('DB_PASSWORD'),  # PostgreSQL password
-        'HOST': config('DB_HOST', default='localhost'),  # Set to your PostgreSQL server address
-        'PORT': config('DB_PORT', default='5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -158,21 +165,22 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins
 
 CORS_ALLOWED_ORIGINS = [
-    "https://babystore-mauve.vercel.app/",  
+    # "https://babystore-mauve.vercel.app",
+    "http://localhost:5173"  
 ]
 
-RAZORPAY_KEY_ID = config('RAZORPAY_KEY_ID')
-RAZORPAY_KEY_SECRET = config('RAZORPAY_KEY_SECRET')
+# RAZORPAY_KEY_ID = config('RAZORPAY_KEY_ID')
+# RAZORPAY_KEY_SECRET = config('RAZORPAY_KEY_SECRET')
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_SIGNATURE_NAME = config('AWS_S3_SIGNATURE_NAME')
-AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
-AWS_S3_FILE_OVERWRITE = config('AWS_S3_FILE_OVERWRITE', default=False, cast=bool)
-AWS_DEFAULT_ACL = config('AWS_DEFAULT_ACL', default=None)
-AWS_S3_VERITY = config('AWS_S3_VERITY', default=True, cast=bool)
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+# AWS_S3_SIGNATURE_NAME = config('AWS_S3_SIGNATURE_NAME')
+# AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+# AWS_S3_FILE_OVERWRITE = config('AWS_S3_FILE_OVERWRITE', default=False, cast=bool)
+# AWS_DEFAULT_ACL = config('AWS_DEFAULT_ACL', default=None)
+# AWS_S3_VERITY = config('AWS_S3_VERITY', default=True, cast=bool)
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
