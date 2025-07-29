@@ -3,7 +3,6 @@ from django.conf import settings
 from cart.models import Cart,CartItems
 from products.models import Product
 
-# Create your models here.
 class Order(models.Model):
     PENDING = 'Pending'
     CONFIRMED = 'Confirmed'
